@@ -10,13 +10,13 @@ const useStyles = makeStyles(() => ({
       padding: 0,
       "& .MuiTypography-root": {
         maxWidth: "fit-content",
-        fontSize: "1.4em",
+        fontSize: "1.5em",
         fontWeight: 700,
         letterSpacing: 0
       },
       "& :not(:nth-child(1))": {
         marginLeft: 20,
-        fontSize: "1.1em",
+        fontSize: "1.3em",
         fontWeight: 500
       }
     },
