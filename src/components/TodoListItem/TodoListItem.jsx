@@ -6,12 +6,12 @@ import {
   ListItemSecondaryAction,
   ListItemText
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
+import { Delete, Edit } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { inputId } from "../../constants";
-import { setEditedTodo } from "../../store/actions";
+import { apiBaseUrl, inputId } from "../../constants";
+import { deleteTodo, setEditedTodo, setError, setLoading } from "../../store/actions";
 
 function TodoListItem({ todo, isChecked, handleCheck }) {
   const dispatch = useDispatch();
@@ -24,6 +24,21 @@ function TodoListItem({ todo, isChecked, handleCheck }) {
     }
   };
 
+  const handleClickDelete = async () => {
+    dispatch(setLoading(true));
+    dispatch(setError(null));
+    dispatch(setEditedTodo(null));
+
+    const response = await fetch(`${apiBaseUrl}/todos/${todo.id}`, { method: "DELETE" });
+    if (response.ok) {
+      dispatch(setLoading(false));
+      dispatch(deleteTodo(todo));
+    } else {
+      dispatch(setLoading(false));
+      dispatch(setError(`Delete todo error with status code ${response.status}`));
+    }
+  };
+
   return (
     <ListItem key={todo.id} dense button onClick={() => handleCheck(todo)}>
       <ListItemIcon>
@@ -33,6 +48,9 @@ function TodoListItem({ todo, isChecked, handleCheck }) {
       <ListItemSecondaryAction>
         <IconButton edge="end" aria-label="edit" color="primary" onClick={handleClickEdit}>
           <Edit />
+        </IconButton>
+        <IconButton edge="end" aria-label="edit" color="secondary" onClick={handleClickDelete}>
+          <Delete />
         </IconButton>
       </ListItemSecondaryAction>
     </ListItem>
