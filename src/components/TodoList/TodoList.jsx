@@ -31,9 +31,13 @@ function TodoList() {
   return (
     <div className={classes.root}>
       <h1>TodoList</h1>
-      <Form />
       {loading && !error && <SimpleBackdrop />}
-      {!loading && error && <Alert severity="error">{error}</Alert>}
+      {!loading && error && (
+        <Alert severity="error" style={{ marginBottom: 20 }}>
+          {error}
+        </Alert>
+      )}
+      <Form />
       {todos.length > 0 && (
         <List className={classes.list}>
           {todos.map(todo => (

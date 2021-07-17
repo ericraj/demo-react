@@ -9,8 +9,21 @@ import {
 import { Edit } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { inputId } from "../../constants";
+import { setEditedTodo } from "../../store/actions";
 
 function TodoListItem({ todo, isChecked, handleCheck }) {
+  const dispatch = useDispatch();
+
+  const handleClickEdit = () => {
+    const input = document.getElementById(inputId);
+    if (input) {
+      input.value = todo.title;
+      dispatch(setEditedTodo(todo));
+    }
+  };
+
   return (
     <ListItem key={todo.id} dense button onClick={() => handleCheck(todo)}>
       <ListItemIcon>
@@ -18,7 +31,7 @@ function TodoListItem({ todo, isChecked, handleCheck }) {
       </ListItemIcon>
       <ListItemText id={todo.id} primary={todo.title} />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="edit" color="primary">
+        <IconButton edge="end" aria-label="edit" color="primary" onClick={handleClickEdit}>
           <Edit />
         </IconButton>
       </ListItemSecondaryAction>

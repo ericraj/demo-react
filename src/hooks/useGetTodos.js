@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTodo, setError, setLoading } from "../store/actions";
+import { getAllTodo, setEditedTodo, setError, setLoading } from "../store/actions";
 import { todoSelector, errorSelector, loadingSelector } from "../store/selectors";
 
 const useGetTodos = (url, limit) => {
@@ -13,6 +13,7 @@ const useGetTodos = (url, limit) => {
   useEffect(async () => {
     dispatch(setLoading(true));
     dispatch(setError(null));
+    dispatch(setEditedTodo(null));
 
     const response = await fetch(url);
     let res = await response.json();

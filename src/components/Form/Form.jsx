@@ -1,9 +1,10 @@
 import { Button, TextField } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
 import React, { createRef } from "react";
-import { useDispatch } from "react-redux";
-import { apiBaseUrl, inputId } from "../../constants";
-import { addTodo as addTodoAction, setError, setLoading } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { inputId } from "../../constants";
+import { addTodo, setEditedTodo, setError, setLoading, updateTodo } from "../../store/actions";
+import { editedTodoSelector } from "../../store/selectors";
+import { saveTodoToServer } from "../../utils";
 import useStyles from "./styles";
 
 function Form() {
@@ -11,31 +12,33 @@ function Form() {
   const inputRef = createRef();
   const dispatch = useDispatch();
 
-  const addTodo = event => {
+  const editedTodo = useSelector(editedTodoSelector);
+
+  const saveTodo = event => {
     event.preventDefault();
     if (inputRef.current.value) {
       dispatch(setLoading(true));
       dispatch(setError(null));
 
-      fetch(`${apiBaseUrl}/todos`, {
-        method: "POST",
-        body: JSON.stringify({
-          completed: false,
-          title: inputRef.current.value,
-          userId: 1
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      }).then(response => {
+      let payload = { completed: false, title: inputRef.current.value, userId: 1 };
+      if (editedTodo) {
+        payload = { ...editedTodo, title: inputRef.current.value };
+      }
+
+      saveTodoToServer(payload).then(response => {
         if (response.ok) {
           // Empty input
           const input = document.getElementById(inputId);
           if (input) input.value = "";
+          dispatch(setEditedTodo(null));
 
           response.json().then(data => {
-            dispatch(addTodoAction(data));
             dispatch(setLoading(false));
+            if (editedTodo) {
+              dispatch(updateTodo(data));
+            } else {
+              dispatch(addTodo(data));
+            }
           });
         } else {
           dispatch(setLoading(false));
@@ -64,9 +67,8 @@ function Form() {
         color="primary"
         size="medium"
         variant="outlined"
-        startIcon={<Add />}
-        onClick={addTodo}>
-        Add
+        onClick={saveTodo}>
+        Save
       </Button>
     </form>
   );

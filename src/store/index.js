@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { errorReducer, loadingeducer, todoReducer } from "./reducers";
+import { editedTodoReducer, errorReducer, loadingeducer, todoReducer } from "./reducers";
 
 const composeEnhancers = composeWithDevTools({});
 
@@ -11,7 +11,8 @@ const store = createStore(
   combineReducers({
     error: errorReducer,
     loading: loadingeducer,
-    todos: todoReducer
+    todos: todoReducer,
+    editedTodo: editedTodoReducer
   }),
   composeEnhancers(applyMiddleware(...middleware))
 );
