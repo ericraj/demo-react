@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import React from "react";
-import { footHeight } from "../../constants/styles";
+import { footHeight } from "../../constants";
 
 const useStyles = makeStyles(theme => ({
   root: {

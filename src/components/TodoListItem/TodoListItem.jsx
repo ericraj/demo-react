@@ -12,7 +12,7 @@ import React from "react";
 
 function TodoListItem({ todo, isChecked, handleCheck }) {
   return (
-    <ListItem key={todo.id} dense button onClick={() => handleCheck(todo.id)}>
+    <ListItem key={todo.id} dense button onClick={() => handleCheck(todo)}>
       <ListItemIcon>
         <Checkbox edge="start" checked={isChecked} tabIndex={-1} disableRipple />
       </ListItemIcon>
