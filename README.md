@@ -1,10 +1,14 @@
-# Getting Started with Create React App
+# Demo React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple react application using [JSONPlaceholder API](https://jsonplaceholder.typicode.com)
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn install`
+
+To install all dependencies
 
 ### `yarn start`
 
@@ -68,3 +72,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Author
+
+👤 **Eric Rajaonarison <eric.raj12@gmail.com>**
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
