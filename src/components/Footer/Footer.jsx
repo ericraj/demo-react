@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 import React from "react";
 import { footHeight } from "../../constants";
 
@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     height: footHeight,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: theme.palette.grey[100],
     fontSize: "0.9em"
   }
@@ -16,7 +16,9 @@ const useStyles = makeStyles(theme => ({
 function Footer() {
   const classes = useStyles();
   return (
-    <footer className={classes.root}>&copy;{new Date().getFullYear()}. All rights reserved.</footer>
+    <footer className={classes.root}>
+      <Container maxWidth="lg">&copy;{new Date().getFullYear()}. All rights reserved.</Container>
+    </footer>
   );
 }
 

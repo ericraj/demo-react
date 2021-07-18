@@ -12,20 +12,15 @@ import useStyles from "./styles";
 
 function TodoList() {
   const classes = useStyles();
-  const [checkeds, setCheckeds] = React.useState([]);
   const { todos, loading, error } = useGetTodos(`${apiBaseUrl}/todos`, 10);
   const dispatch = useDispatch();
 
   const handleCheck = todo => {
-    let newCheckeds = [...checkeds];
-    if (newCheckeds.includes(todo.id)) {
-      newCheckeds = newCheckeds.filter(item => item !== todo.id);
+    if (todo.completed) {
       dispatch(updateTodo({ ...todo, completed: false }));
     } else {
-      newCheckeds = [...newCheckeds, todo.id];
       dispatch(updateTodo({ ...todo, completed: true }));
     }
-    setCheckeds(newCheckeds);
   };
 
   return (
@@ -44,7 +39,6 @@ function TodoList() {
             <TodoListItem
               key={`${todo.id}-${todo.title.split(" ").join("-")}`}
               todo={todo}
-              isChecked={checkeds.includes(todo.id) && todo.completed}
               handleCheck={handleCheck}
             />
           ))}

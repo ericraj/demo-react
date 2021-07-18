@@ -12,8 +12,10 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { apiBaseUrl, inputId } from "../../constants";
 import { deleteTodo, setEditedTodo, setError, setLoading } from "../../store/actions";
+import useStyles from "./styles";
 
-function TodoListItem({ todo, isChecked, handleCheck }) {
+function TodoListItem({ todo, handleCheck }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   const handleClickEdit = () => {
@@ -42,9 +44,13 @@ function TodoListItem({ todo, isChecked, handleCheck }) {
   return (
     <ListItem key={todo.id} dense button onClick={() => handleCheck(todo)}>
       <ListItemIcon>
-        <Checkbox edge="start" checked={isChecked} tabIndex={-1} disableRipple />
+        <Checkbox edge="start" checked={todo.completed} tabIndex={-1} disableRipple />
       </ListItemIcon>
-      <ListItemText id={todo.id} primary={todo.title} />
+      <ListItemText
+        id={todo.id}
+        primary={todo.title}
+        className={todo.completed ? classes.iscompleted : undefined}
+      />
       <ListItemSecondaryAction>
         <IconButton edge="end" aria-label="edit" color="primary" onClick={handleClickEdit}>
           <Edit />
@@ -64,7 +70,6 @@ TodoListItem.propTypes = {
     title: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired
   }).isRequired,
-  isChecked: PropTypes.bool.isRequired,
   handleCheck: PropTypes.func.isRequired
 };
 

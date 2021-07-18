@@ -8,7 +8,8 @@ function AppBar() {
 
   const links = [
     { id: 1, url: "/", text: "Demo React" },
-    { id: 2, url: "/about", text: "About" }
+    { id: 2, url: "/", text: "Todolist" },
+    { id: 3, url: "/about", text: "About" }
   ];
 
   return (
