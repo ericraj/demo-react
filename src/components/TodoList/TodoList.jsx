@@ -1,10 +1,9 @@
 import { List } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { API_BASE_URL } from "../../constants";
-import useGetTodos from "../../hooks/useGetTodos";
-import { updateTodo } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTodoStart, updateTodoStart } from "../../store/actions/todo";
+import { todoSelector } from "../../store/selectors";
 import { SimpleBackdrop } from "../Common";
 import Form from "../Form";
 import TodoListItem from "../TodoListItem";
@@ -12,28 +11,32 @@ import useStyles from "./styles";
 
 function TodoList() {
   const classes = useStyles();
-  const { todos, loading, error } = useGetTodos(`${API_BASE_URL}/todos`, 10);
   const dispatch = useDispatch();
+  const { todos, loading, error } = useSelector(todoSelector);
 
-  const handleCheck = todo => {
-    if (todo.completed) {
-      dispatch(updateTodo({ ...todo, completed: false }));
-    } else {
-      dispatch(updateTodo({ ...todo, completed: true }));
-    }
-  };
+  const handleCheck = React.useCallback(
+    todo => {
+      dispatch(updateTodoStart(todo, true));
+    },
+    [dispatch]
+  );
+
+  // Get todos
+  React.useEffect(() => {
+    dispatch(getAllTodoStart());
+  }, []);
 
   return (
     <div className={classes.root}>
       <h1>TodoList</h1>
-      {loading && !error && <SimpleBackdrop />}
-      {!loading && error && (
+      {loading && <SimpleBackdrop />}
+      {error && (
         <Alert severity="error" style={{ marginBottom: 20 }}>
           {error}
         </Alert>
       )}
       <Form />
-      {todos.length > 0 && (
+      {todos && todos.length > 0 && (
         <List className={classes.list}>
           {todos.map(todo => (
             <TodoListItem

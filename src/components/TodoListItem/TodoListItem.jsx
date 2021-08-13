@@ -10,36 +10,22 @@ import { Delete, Edit } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { API_BASE_URL, INPUT_ID } from "../../constants";
-import { deleteTodo, setEditedTodo, setError, setLoading } from "../../store/actions";
+import { changeTodoTitle } from "../../store/actions/form";
+import { deleteTodoStart, setEditedTodo } from "../../store/actions/todo";
 import useStyles from "./styles";
 
 function TodoListItem({ todo, handleCheck }) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleClickEdit = () => {
-    const input = document.getElementById(INPUT_ID);
-    if (input) {
-      input.value = todo.title;
-      dispatch(setEditedTodo(todo));
-    }
-  };
+  const handleClickEdit = React.useCallback(() => {
+    dispatch(changeTodoTitle(todo.title));
+    dispatch(setEditedTodo(todo));
+  }, [todo, dispatch]);
 
-  const handleClickDelete = async () => {
-    dispatch(setLoading(true));
-    dispatch(setError(null));
-    dispatch(setEditedTodo(null));
-
-    const response = await fetch(`${API_BASE_URL}/todos/${todo.id}`, { method: "DELETE" });
-    if (response.ok) {
-      dispatch(setLoading(false));
-      dispatch(deleteTodo(todo));
-    } else {
-      dispatch(setLoading(false));
-      dispatch(setError(`Delete todo error with status code ${response.status}`));
-    }
-  };
+  const handleClickDelete = React.useCallback(() => {
+    dispatch(deleteTodoStart(todo));
+  }, [todo, dispatch]);
 
   return (
     <ListItem key={todo.id} dense button onClick={() => handleCheck(todo)}>

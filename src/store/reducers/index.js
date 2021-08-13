@@ -1,6 +1,4 @@
-import errorReducer from "./errorReducer";
-import loadingeducer from "./loadingReducer";
-import todoReducer from "./todoReducer";
-import editedTodoReducer from "./editedTodoReducer";
+import todoReducer from "./todo";
+import formReducer from "./form";
 
-export { errorReducer, loadingeducer, todoReducer, editedTodoReducer };
+export { todoReducer, formReducer };

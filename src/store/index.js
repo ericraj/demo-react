@@ -1,20 +1,23 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import { editedTodoReducer, errorReducer, loadingeducer, todoReducer } from "./reducers";
+import createSagaMiddleware from "redux-saga";
+import { formReducer, todoReducer } from "./reducers";
+import sagas from "./sagas";
 
 const composeEnhancers = composeWithDevTools({});
 
-const middleware = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [sagaMiddleware];
 
 const store = createStore(
   combineReducers({
-    error: errorReducer,
-    loading: loadingeducer,
-    todos: todoReducer,
-    editedTodo: editedTodoReducer
+    form: formReducer,
+    todo: todoReducer
   }),
-  composeEnhancers(applyMiddleware(...middleware))
+  composeEnhancers(applyMiddleware(...middlewares))
 );
+
+sagaMiddleware.run(sagas);
 
 export default store;

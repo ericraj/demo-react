@@ -1,4 +1,2 @@
-export const todoSelector = state => state.todos;
-export const loadingSelector = state => state.loading;
-export const errorSelector = state => state.error;
-export const editedTodoSelector = state => state.editedTodo;
+export const todoSelector = state => state.todo;
+export const formSelector = state => state.form;
