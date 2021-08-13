@@ -1,9 +1,9 @@
 // CSSS
-export const appBarHeight = 64;
-export const footHeight = 40;
+export const APP_BAR_HEIGHT = 64;
+export const FOOTER_HEIGHT = 40;
 
 // API
-export const apiBaseUrl = "https://jsonplaceholder.typicode.com";
+export const API_BASE_URL = "https://jsonplaceholder.typicode.com";
 
 // DOM
-export const inputId = "id-text-field";
+export const INPUT_ID = "id-text-field";

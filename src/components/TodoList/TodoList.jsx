@@ -2,7 +2,7 @@ import { List } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { apiBaseUrl } from "../../constants";
+import { API_BASE_URL } from "../../constants";
 import useGetTodos from "../../hooks/useGetTodos";
 import { updateTodo } from "../../store/actions";
 import { SimpleBackdrop } from "../Common";
@@ -12,7 +12,7 @@ import useStyles from "./styles";
 
 function TodoList() {
   const classes = useStyles();
-  const { todos, loading, error } = useGetTodos(`${apiBaseUrl}/todos`, 10);
+  const { todos, loading, error } = useGetTodos(`${API_BASE_URL}/todos`, 10);
   const dispatch = useDispatch();
 
   const handleCheck = todo => {

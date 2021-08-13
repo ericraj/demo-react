@@ -10,7 +10,7 @@ import { Delete, Edit } from "@material-ui/icons";
 import PropTypes from "prop-types";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { apiBaseUrl, inputId } from "../../constants";
+import { API_BASE_URL, INPUT_ID } from "../../constants";
 import { deleteTodo, setEditedTodo, setError, setLoading } from "../../store/actions";
 import useStyles from "./styles";
 
@@ -19,7 +19,7 @@ function TodoListItem({ todo, handleCheck }) {
   const dispatch = useDispatch();
 
   const handleClickEdit = () => {
-    const input = document.getElementById(inputId);
+    const input = document.getElementById(INPUT_ID);
     if (input) {
       input.value = todo.title;
       dispatch(setEditedTodo(todo));
@@ -31,7 +31,7 @@ function TodoListItem({ todo, handleCheck }) {
     dispatch(setError(null));
     dispatch(setEditedTodo(null));
 
-    const response = await fetch(`${apiBaseUrl}/todos/${todo.id}`, { method: "DELETE" });
+    const response = await fetch(`${API_BASE_URL}/todos/${todo.id}`, { method: "DELETE" });
     if (response.ok) {
       dispatch(setLoading(false));
       dispatch(deleteTodo(todo));

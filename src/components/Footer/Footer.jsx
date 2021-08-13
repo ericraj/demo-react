@@ -1,10 +1,10 @@
 import { Container, makeStyles } from "@material-ui/core";
 import React from "react";
-import { footHeight } from "../../constants";
+import { FOOTER_HEIGHT } from "../../constants";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: footHeight,
+    height: FOOTER_HEIGHT,
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-start",

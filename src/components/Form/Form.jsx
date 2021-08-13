@@ -1,7 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { inputId } from "../../constants";
+import { INPUT_ID } from "../../constants";
 import { addTodo, setEditedTodo, setError, setLoading, updateTodo } from "../../store/actions";
 import { editedTodoSelector } from "../../store/selectors";
 import { saveTodoToServer } from "../../utils";
@@ -28,7 +28,7 @@ function Form() {
       saveTodoToServer(payload).then(response => {
         if (response.ok) {
           // Empty input
-          const input = document.getElementById(inputId);
+          const input = document.getElementById(INPUT_ID);
           if (input) input.value = "";
           dispatch(setEditedTodo(null));
 
@@ -51,7 +51,7 @@ function Form() {
   return (
     <form className={classes.root}>
       <TextField
-        id={inputId}
+        id={INPUT_ID}
         placeholder="Add todo"
         fullWidth
         margin="none"
